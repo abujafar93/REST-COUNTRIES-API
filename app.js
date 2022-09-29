@@ -50,6 +50,10 @@ const detail = () => {
       document.querySelector(".population").innerText = param[1];
     } else if (param[0] == "border1") {
       document.querySelector(".cty1").innerText = param[1];
+    } else if (param[0] == "border2") {
+      document.querySelector(".cty2").innerText = param[1];
+    } else if (param[0] == "border3") {
+      document.querySelector(".cty3").innerText = param[1];
     }
   }
 };
@@ -75,7 +79,7 @@ const updateUI = (data) => {
     var par = document.createElement("div");
     par.classList.add("card");
     par.innerHTML = `
-    <a href="details.html?native=${item.name.common}&region=${item.region}&population=${item.population}&flag=${item.flags.png}&subregion=${item.subregion}&capital=${item.capital[0]}&domainlevel=${item.tld[0]}&currencies=${item.currencies[0]}&languages=${item.languages[0]}&border1=${item.borders[0]}" target="_blank">
+    <a href="details.html?native=${item.name.common}&region=${item.region}&population=${item.population}&flag=${item.flags.png}&subregion=${item.subregion}&capital=${item.capital[0]}&domainlevel=${item.tld[0]}&currencies=${item.currencies[0]}&languages=${item.languages[0]}&border1=${item.borders[0]}&border2=${item.borders[1]}&border3=${item.borders[2]}" target="_blank">
     <img
     src="${item.flags.png}"
     alt="country_flag"
