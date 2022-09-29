@@ -1,7 +1,5 @@
 const bodyClass = document.querySelector(".go");
-// console.log(bodyClass);
 const themer = document.querySelector(".theme_changer");
-// console.log(themer);
 
 //THEME
 const themeChanger = () => {
@@ -20,43 +18,90 @@ themer.addEventListener("click", themeChanger);
 
 //API INTEGRATION
 
-const updateUI = (data) => {
-  console.log(data);
-  const {
-    length,
-    // capital,
-    // borders,
-    // name,
-    // region,
-    // tld,
-    // flags,
-    // currencies,
-    // population,
-    // languages,
-    // subregion,
-  } = data;
+const detail = () => {
+  console.log(window.location.href);
 
-  document.querySelector(".country_container").innerHTML = `
-  <div class="card">
-  <a href="details.html">
+  const urlstring = window.location.href;
+  getparam = urlstring.split("?")[1];
+  let query = new URLSearchParams(getparam);
+
+  obj = {};
+
+  for (let param of query.entries()) {
+    console.log(param[0] + ":" + param[1]);
+
+    if (param[0] == "native") {
+      document.querySelector(".native").innerText = param[1];
+    } else if (param[0] == "region") {
+      document.querySelector(".region").innerText = param[1];
+    } else if (param[0] == "subregion") {
+      document.querySelector(".sub_region").innerText = param[1];
+    } else if (param[0] == "capital") {
+      document.querySelector(".capital").innerText = param[1];
+    } else if (param[0] == "currencies") {
+      document.getElementsByClassName("currency").innerText = param[1];
+    } else if (param[0] == "languages") {
+      document.querySelector(".lang").innerText = param[1];
+    } else if (param[0] == "domainlevel") {
+      document.querySelector(".top_level_dom").innerText = param[1];
+    } else if (param[0] == "flag") {
+      document.getElementsByClassName("country_flag").src = param[1];
+    } else if (param[0] == "population") {
+      document.querySelector(".population").innerText = param[1];
+    } else if (param[0] == "border1") {
+      document.querySelector(".cty1").innerText = param[1];
+    }
+  }
+};
+
+const updateUI = (data) => {
+  const {
+    name,
+    borders,
+    capital,
+    region,
+    tld,
+    flags,
+    currencies,
+    population,
+    languages,
+    subregion,
+  } = data;
+  console.log(data);
+
+  let country = document.querySelector(".country_container");
+
+  data.forEach((item) => {
+    var par = document.createElement("div");
+    par.classList.add("card");
+    par.innerHTML = `
+    <a href="details.html?native=${item.name.common}&region=${item.region}&population=${item.population}&flag=${item.flags.png}&subregion=${item.subregion}&capital=${item.capital[0]}&domainlevel=${item.tld[0]}&currencies=${item.currencies[0]}&languages=${item.languages[0]}&border1=${item.borders[0]}" target="_blank">
+    <img
+    src="${item.flags.png}"
+    alt="country_flag"
+    id="country_flag"
+    width="300"
+    height="200"
+  />
     <div class="country_info">
-      <h2 class="country_name">${length.name}</h2>
+      <h2 class="country_name">${item.name.common}</h2>
       <p>
         <span class="country_info-features">Population:</span>
-        <span class="population">${length.population}</span>
+        <span class="population">${item.population}</span>
       </p>
       <p>
         <span class="country_info-features">Region:</span>
-        <span class="region">${length.region}</span>
+        <span class="region">${item.region}</span>
       </p>
       <p>
         <span class="country_info-features">Capital:</span>
-        <span class="capital">${length.capital}</span>
+        <span class="capital">${item.capital}</span>
       </p>
     </div>
   </a>
-</div>
-  `;
+    `;
+    country.append(par);
+  });
 };
 
 const getCountry = async () => {
@@ -74,3 +119,5 @@ const getCountry = async () => {
 getCountry()
   .then((data) => updateUI(data))
   .catch((err) => console.log(err));
+
+detail();
