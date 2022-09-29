@@ -201,6 +201,10 @@ nav {
   color: inherit;
 }
 
+.filtered {
+  display: none !important;
+}
+
 /* .details_btn_box a {
   display: flex;
   text-decoration: none;
