@@ -5,15 +5,13 @@ const card = document.querySelector(".card");
 
 //THEME
 const themeChanger = () => {
-  if (bodyClass.classList == "light") {
+  if (bodyClass.classList.contains("light")) {
     bodyClass.classList.remove("light");
     bodyClass.classList.add("dark");
-  } else if (bodyClass.classList == "dark") {
+  } else if (bodyClass.classList.contains("dark")) {
     bodyClass.classList.remove("dark");
     bodyClass.classList.add("light");
   }
-
-  console.log(bodyClass);
 };
 
 themer.addEventListener("click", themeChanger);
@@ -41,20 +39,20 @@ const detail = () => {
     } else if (param[0] == "capital") {
       document.querySelector(".capital").innerText = param[1];
     } else if (param[0] == "currencies") {
-      document.getElementsByClassName("currency").innerText = param[1];
+      document.querySelector(".currency").innerText = param[1];
     } else if (param[0] == "languages") {
       document.querySelector(".lang").innerText = param[1];
     } else if (param[0] == "domainlevel") {
       document.querySelector(".top_level_dom").innerText = param[1];
     } else if (param[0] == "flag") {
-      document.getElementsByClassName("country_flag").src = param[1];
+      document.getElementById("country_flag").src = param[1];
     } else if (param[0] == "population") {
       document.querySelector(".population").innerText = param[1];
-    } else if (param[0] == "border1") {
+    } else if (param[0] == "firstborder") {
       document.querySelector(".cty1").innerText = param[1];
-    } else if (param[0] == "border2") {
+    } else if (param[0] == "secondborder") {
       document.querySelector(".cty2").innerText = param[1];
-    } else if (param[0] == "border3") {
+    } else if (param[0] == "thirdborder") {
       document.querySelector(".cty3").innerText = param[1];
     }
   }
@@ -75,15 +73,36 @@ const updateUI = (data) => {
   } = data;
   console.log(data);
 
-  // &border1=${item.borders[0]}&border2=${item.borders[1]}&border3=${item.borders[2]}
-
   let country = document.querySelector(".country_container");
 
   data.forEach((item) => {
+    const Capital = item.hasOwnProperty("capital") ? item.capital[0] : "";
+
+    let curr_name = "";
+
+    if (item.hasOwnProperty("currencies")) {
+      Currency = Object.keys(item.currencies);
+      const curr_key = Currency[0];
+      curr_name = item.currencies[curr_key].name;
+    }
+
+    let lang = "";
+    if (item.hasOwnProperty("languages")) {
+      Languages = Object.keys(item.languages);
+      const lang_key = Languages[0];
+      lang = item.languages[lang_key];
+    }
+
+    const border1 = item.hasOwnProperty("borders") ? item.borders[0] : "";
+
+    const border2 = item.hasOwnProperty("borders") ? item.borders[1] : "";
+
+    const border3 = item.hasOwnProperty("borders") ? item.borders[2] : "";
+
     let par = document.createElement("div");
     par.classList.add("card");
     par.innerHTML = `
-  <a href="details.html?native=${item.name.common}&region=${item.region}&population=${item.population}&flag=${item.flags.png}&subregion=${item.subregion}&capital=${item.capital[0]}&domainlevel=${item.tld[0]}&currencies=${item.currencies[0]}&languages=${item.languages[0]}" target="_blank">
+  <a href="details.html?native=${item.name.common}&region=${item.region}&population=${item.population}&flag=${item.flags.png}&subregion=${item.subregion}&capital=${Capital}&firstborder=${border1}&secondborder=${border2}&thirdborder=${border3}&currencies=${curr_name}&languages=${lang}" target="_blank">
     <img
     src="${item.flags.png}"
     alt="country_flag"
@@ -127,42 +146,6 @@ const getCountry = async () => {
 
 getCountry()
   .then((data) => updateUI(data))
-  .then((data) => searchCountry(data))
   .catch((err) => console.log(err));
 
 detail();
-
-// const searchCountry = (data) => {
-//   const {
-//     name,
-//     borders,
-//     capital,
-//     region,
-//     tld,
-//     flags,
-//     currencies,
-//     population,
-//     languages,
-//     subregion,
-//   } = data;
-
-//   data.forEach((item) => {
-//     Array.from(item.name.common)
-//       .filter((item) => !item.textContent.toLowerCase().includes(term))
-//       .forEach((item) => item.classList.add("filtered"));
-
-//     Array.from(item.name.common)
-//       .filter((item) => item.textContent.toLowerCase().includes(term))
-//       .forEach((item) => item.classList.remove("filtered"));
-//   });
-// };
-
-// SEARCH COUNTRY
-search.addEventListener("keyup", () => {
-  // if (!item.name.common.contain(search.value)) {
-  // }
-  console.log(search.value);
-  console.log(card);
-});
-
-// console.log(search);

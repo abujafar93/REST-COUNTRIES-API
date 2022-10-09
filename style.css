@@ -205,11 +205,11 @@ nav {
   display: none !important;
 }
 
-/* .details_btn_box a {
+.details_btn_box a {
   display: flex;
   text-decoration: none;
   color: inherit;
-} */
+}
 
 @media screen and (max-width: 700px) {
   nav {
