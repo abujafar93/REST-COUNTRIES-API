@@ -47,6 +47,12 @@ nav {
 
 .theme_changer {
   cursor: pointer;
+  display: flex;
+  /* height: 100%; */
+}
+
+.theme_text {
+  margin-left: 10px;
 }
 
 .theme_changer:hover {

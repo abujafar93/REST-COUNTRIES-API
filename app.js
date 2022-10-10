@@ -107,7 +107,7 @@ const updateUI = (data) => {
   <a href="details.html?native=${item.name.common}&region=${item.region}&population=${item.population}&flag=${item.flags.png}&subregion=${item.subregion}&capital=${Capital}&firstborder=${border1}&secondborder=${border2}&thirdborder=${border3}&currencies=${curr_name}&languages=${lang}&domainlevel=${item.tld}" target="_blank">
     <img
     src="${item.flags.png}"
-    alt="country_flag"
+    alt="the_country_flag"
     id="country_flag"
     width="300"
     height="200"
@@ -229,7 +229,7 @@ regionFilter.addEventListener("change", () => {
   <a href="details.html?native=${item.country_name}&region=${item.region_name}&population=${item.population_name}&flag=${item.flag_name}&subregion=${item.sub_region_name}&capital=${item.capital_name}&firstborder=${item.FirstBorder}&secondborder=${item.SecondBorder}&thirdborder=${item.ThirdBorder}&currencies=${item.Currency_name}&languages=${item.Language_name}&domainlevel=${item.DomainLevel}" target="_blank">
     <img
     src="${item.flag_name}"
-    alt="country_flag"
+    alt="the_country_flag"
     id="country_flag"
     width="300"
     height="200"
