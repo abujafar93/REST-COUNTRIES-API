@@ -104,7 +104,7 @@ const updateUI = (data) => {
     let par = document.createElement("div");
     par.classList.add("card");
     par.innerHTML = `
-  <a href="details.html?native=${item.name.common}&region=${item.region}&population=${item.population}&flag=${item.flags.png}&subregion=${item.subregion}&capital=${Capital}&firstborder=${border1}&secondborder=${border2}&thirdborder=${border3}&currencies=${curr_name}&languages=${lang}" target="_blank">
+  <a href="details.html?native=${item.name.common}&region=${item.region}&population=${item.population}&flag=${item.flags.png}&subregion=${item.subregion}&capital=${Capital}&firstborder=${border1}&secondborder=${border2}&thirdborder=${border3}&currencies=${curr_name}&languages=${lang}&domainlevel=${item.tld}" target="_blank">
     <img
     src="${item.flags.png}"
     alt="country_flag"
@@ -143,6 +143,7 @@ const updateUI = (data) => {
     let FirstBorder = border1;
     let SecondBorder = border2;
     let ThirdBorder = border3;
+    let DomainLevel = item.tld;
 
     let my_object = {
       country_name,
@@ -156,6 +157,7 @@ const updateUI = (data) => {
       FirstBorder,
       SecondBorder,
       ThirdBorder,
+      DomainLevel,
     };
 
     myData.push(my_object);
@@ -178,7 +180,7 @@ search.addEventListener("keyup", () => {
     let par = document.createElement("div");
     par.classList.add("card");
     par.innerHTML = `
-  <a href="details.html?native=${item.country_name}&region=${item.region_name}&population=${item.population_name}&flag=${item.flag_name}&subregion=${item.sub_region_name}&capital=${item.capital_name}&firstborder=${item.FirstBorder}&secondborder=${item.SecondBorder}&thirdborder=${item.ThirdBorder}&currencies=${item.Currency_name}&languages=${item.Language_name}" target="_blank">
+  <a href="details.html?native=${item.country_name}&region=${item.region_name}&population=${item.population_name}&flag=${item.flag_name}&subregion=${item.sub_region_name}&capital=${item.capital_name}&firstborder=${item.FirstBorder}&secondborder=${item.SecondBorder}&thirdborder=${item.ThirdBorder}&currencies=${item.Currency_name}&languages=${item.Language_name}&domainlevel=${item.DomainLevel}" target="_blank">
     <img
     src="${item.flag_name}"
     alt="country_flag"
@@ -224,7 +226,7 @@ regionFilter.addEventListener("change", () => {
     let par = document.createElement("div");
     par.classList.add("card");
     par.innerHTML = `
-  <a href="details.html?native=${item.country_name}&region=${item.region_name}&population=${item.population_name}&flag=${item.flag_name}&subregion=${item.sub_region_name}&capital=${item.capital_name}&firstborder=${item.FirstBorder}&secondborder=${item.SecondBorder}&thirdborder=${item.ThirdBorder}&currencies=${item.Currency_name}&languages=${item.Language_name}" target="_blank">
+  <a href="details.html?native=${item.country_name}&region=${item.region_name}&population=${item.population_name}&flag=${item.flag_name}&subregion=${item.sub_region_name}&capital=${item.capital_name}&firstborder=${item.FirstBorder}&secondborder=${item.SecondBorder}&thirdborder=${item.ThirdBorder}&currencies=${item.Currency_name}&languages=${item.Language_name}&domainlevel=${item.DomainLevel}" target="_blank">
     <img
     src="${item.flag_name}"
     alt="country_flag"
