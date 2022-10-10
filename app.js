@@ -1,7 +1,7 @@
 const bodyClass = document.querySelector(".go");
 const themer = document.querySelector(".theme_changer");
-const search = document.querySelector("#search");
-const card = document.querySelector(".card");
+const search = document.querySelector(".form_section #search");
+const regionFilter = document.querySelector(".form_section #regions");
 
 //THEME
 const themeChanger = () => {
@@ -58,6 +58,8 @@ const detail = () => {
   }
 };
 
+let myData = [];
+
 const updateUI = (data) => {
   const {
     name,
@@ -76,7 +78,7 @@ const updateUI = (data) => {
   let country = document.querySelector(".country_container");
 
   data.forEach((item) => {
-    const Capital = item.hasOwnProperty("capital") ? item.capital[0] : "";
+    let Capital = item.hasOwnProperty("capital") ? item.capital[0] : "";
 
     let curr_name = "";
 
@@ -129,8 +131,128 @@ const updateUI = (data) => {
     `;
 
     country.append(par);
+
+    let country_name = item.name.common;
+    let region_name = item.region;
+    let population_name = item.population;
+    let flag_name = item.flags.png;
+    let sub_region_name = item.subregion;
+    let capital_name = item.capital;
+    let Currency_name = curr_name;
+    let Language_name = lang;
+    let FirstBorder = border1;
+    let SecondBorder = border2;
+    let ThirdBorder = border3;
+
+    let my_object = {
+      country_name,
+      region_name,
+      population_name,
+      flag_name,
+      sub_region_name,
+      capital_name,
+      Currency_name,
+      Language_name,
+      FirstBorder,
+      SecondBorder,
+      ThirdBorder,
+    };
+
+    myData.push(my_object);
   });
 };
+
+search.addEventListener("keyup", () => {
+  let srch_txt = search.value;
+
+  srch_filter = myData.filter(
+    (item) =>
+      item.country_name.toLowerCase().indexOf(srch_txt.toLowerCase()) > -1
+  );
+
+  document.querySelector(".country_container").innerHTML = "";
+
+  let country = document.querySelector(".country_container");
+
+  srch_filter.forEach((item) => {
+    let par = document.createElement("div");
+    par.classList.add("card");
+    par.innerHTML = `
+  <a href="details.html?native=${item.country_name}&region=${item.region_name}&population=${item.population_name}&flag=${item.flag_name}&subregion=${item.sub_region_name}&capital=${item.capital_name}&firstborder=${item.FirstBorder}&secondborder=${item.SecondBorder}&thirdborder=${item.ThirdBorder}&currencies=${item.Currency_name}&languages=${item.Language_name}" target="_blank">
+    <img
+    src="${item.flag_name}"
+    alt="country_flag"
+    id="country_flag"
+    width="300"
+    height="200"
+  />
+    <div class="country_info">
+      <h2 class="country_name">${item.country_name}</h2>
+      <p>
+        <span class="country_info-features">Population:</span>
+        <span class="population">${item.population_name}</span>
+      </p>
+      <p>
+        <span class="country_info-features">Region:</span>
+        <span class="region">${item.region_name}</span>
+      </p>
+      <p>
+        <span class="country_info-features">Capital:</span>
+        <span class="capital">${item.capital_name}</span>
+      </p>
+    </div>
+  </a>
+    `;
+
+    country.append(par);
+  });
+});
+
+regionFilter.addEventListener("change", () => {
+  let rgn_txt = regionFilter.value;
+  console.log(rgn_txt);
+
+  rgn_filter = myData.filter(
+    (item) => item.region_name.toLowerCase().indexOf(rgn_txt.toLowerCase()) > -1
+  );
+
+  document.querySelector(".country_container").innerHTML = "";
+
+  let country = document.querySelector(".country_container");
+
+  rgn_filter.forEach((item) => {
+    let par = document.createElement("div");
+    par.classList.add("card");
+    par.innerHTML = `
+  <a href="details.html?native=${item.country_name}&region=${item.region_name}&population=${item.population_name}&flag=${item.flag_name}&subregion=${item.sub_region_name}&capital=${item.capital_name}&firstborder=${item.FirstBorder}&secondborder=${item.SecondBorder}&thirdborder=${item.ThirdBorder}&currencies=${item.Currency_name}&languages=${item.Language_name}" target="_blank">
+    <img
+    src="${item.flag_name}"
+    alt="country_flag"
+    id="country_flag"
+    width="300"
+    height="200"
+  />
+    <div class="country_info">
+      <h2 class="country_name">${item.country_name}</h2>
+      <p>
+        <span class="country_info-features">Population:</span>
+        <span class="population">${item.population_name}</span>
+      </p>
+      <p>
+        <span class="country_info-features">Region:</span>
+        <span class="region">${item.region_name}</span>
+      </p>
+      <p>
+        <span class="country_info-features">Capital:</span>
+        <span class="capital">${item.capital_name}</span>
+      </p>
+    </div>
+  </a>
+    `;
+
+    country.append(par);
+  });
+});
 
 const getCountry = async () => {
   const response = await fetch("https://restcountries.com/v3.1/all");
